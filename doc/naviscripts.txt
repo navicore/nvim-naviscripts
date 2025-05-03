@@ -1,0 +1,19 @@
+*naviscripts.txt*    Plugin for Rust file formatting
+
+==============================================================================
+CONTENTS                                                       *naviscripts*
+
+1. Introduction........................................|naviscripts-intro|
+2. Commands...........................................|naviscripts-commands|
+
+==============================================================================
+INTRODUCTION                                            *naviscripts-intro*
+
+naviscripts is a Neovim plugin that provides a command to format all Rust
+files in the `src/` directory and its subdirectories.
+
+==============================================================================
+COMMANDS                                                *naviscripts-commands*
+
+:FormatRustFiles
+    Formats all Rust files in the `src/` directory and its subdirectories.
