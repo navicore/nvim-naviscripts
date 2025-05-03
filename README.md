@@ -9,10 +9,11 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
 {
-  "your-username/naviscripts",
+  "navicore/nvim-naviscripts",
   config = function()
     require("naviscripts")
-  end
+  end,
+  cmd = "FormatRustFiles", -- Lazy-load on this command
 }
 ```
 
