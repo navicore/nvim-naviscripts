@@ -19,6 +19,11 @@ COMMANDS                                                *nvim-naviscripts-comman
 :FormatRustFiles          Edit and format the rust files in the src dir
 
 ==============================================================================
+REMINDERS                                               *nvim-naviscripts-list*
+
+The `FormatRustFiles` command will reformat rust files in the src dir.
+
+==============================================================================
 CONFIGURATION                                           *nvim-naviscripts-config*
 
 The nvim-naviscripts plugin can be enabled by the `setup` function called your
