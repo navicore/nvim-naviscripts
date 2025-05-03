@@ -11,7 +11,7 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 {
   "navicore/nvim-naviscripts",
   config = function()
-    require("naviscripts")
+    require("naviscripts").setup()
   end,
   cmd = "FormatRustFiles", -- Lazy-load on this command
 }
