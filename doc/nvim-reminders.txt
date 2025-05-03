@@ -1,0 +1,30 @@
+*nvim-naviscripts.txt*  A plugin of Misc Scripts in Neovim
+
+==============================================================================
+CONTENTS                                                 *nvim-naviscripts-contents*
+
+Introduction.............................................|nvim-naviscripts-intro|
+Commands.................................................|nvim-naviscripts-commands|
+Configuration............................................|nvim-naviscripts-config|
+
+==============================================================================
+INTRODUCTION                                            *nvim-naviscripts-intro*
+
+The nvim-naviscripts plugin has various scripts I use - they may not be so
+useful to others.
+
+==============================================================================
+COMMANDS                                                *nvim-naviscripts-commands*
+
+:FormatRustFiles          Edit and format the rust files in the src dir
+
+==============================================================================
+CONFIGURATION                                           *nvim-naviscripts-config*
+
+The nvim-naviscripts plugin can be enabled by the `setup` function called your
+init.lua file:
+>
+  require('naviscripts').setup()
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:
