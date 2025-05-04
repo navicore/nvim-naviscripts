@@ -9,9 +9,9 @@ function M.setup()
 	end, { desc = "Format all Rust files in the src/ directory and subdirectories" })
 
 	-- Load the help file
-	local plugin_dir = vim.fn.stdpath("data") .. "/lazy/nvim-naviscripts"
-	local doc_dir = plugin_dir .. "/doc"
-	vim.cmd("helptags " .. doc_dir)
+	-- local plugin_dir = vim.fn.stdpath("data") .. "/lazy/nvim-naviscripts"
+	-- local doc_dir = plugin_dir .. "/doc"
+	-- vim.cmd("helptags " .. doc_dir)
 end
 
 return M
