@@ -16,15 +16,16 @@ function M.format_rust_files()
 		end
 
 		while true do
-			local name, type = uv.fs_scandir_next(handle)
+			local name = uv.fs_scandir_next(handle)
 			if not name then
 				break
 			end
 
 			local full_path = dir .. "/" .. name
-			if type == "directory" then
+			local stat = uv.fs_stat(full_path)
+			if stat and stat.type == "directory" then
 				scan_dir(full_path)
-			elseif type == "file" and name:match("%.rs$") then
+			elseif stat and stat.type == "file" and name:match("%.rs$") then
 				format_file(full_path)
 			end
 		end
