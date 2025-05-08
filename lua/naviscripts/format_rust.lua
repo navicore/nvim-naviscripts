@@ -12,6 +12,7 @@ function M.format_rust_files()
 	local function scan_dir(dir)
 		local handle = uv.fs_scandir(dir)
 		if not handle then
+			vim.notify("Failed to open directory: " .. dir, vim.log.levels.ERROR)
 			return
 		end
 
@@ -24,8 +25,10 @@ function M.format_rust_files()
 			local full_path = dir .. "/" .. name
 			local stat = uv.fs_stat(full_path)
 			if stat and stat.type == "directory" then
+				vim.notify("Scanning directory: " .. full_path, vim.log.levels.INFO)
 				scan_dir(full_path)
 			elseif stat and stat.type == "file" and name:match("%.rs$") then
+				vim.notify("Formatting file: " .. full_path, vim.log.levels.INFO)
 				format_file(full_path)
 			end
 		end
