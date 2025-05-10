@@ -2,39 +2,49 @@ local M = {}
 
 function M.format_rust_files()
 	local uv = vim.loop
-	local src_dir = "src/"
+	local rust_files = {}
 
-	local function format_file(file_path)
-		vim.cmd("edit " .. file_path)
-		vim.cmd("write")
-	end
-
-	local function scan_dir(dir)
+	-- Recursively find all src directories and collect .rs files
+	local function find_rust_files(dir)
 		local handle = uv.fs_scandir(dir)
 		if not handle then
-			vim.notify("Failed to open directory: " .. dir, vim.log.levels.ERROR)
 			return
 		end
-
 		while true do
 			local name = uv.fs_scandir_next(handle)
 			if not name then
 				break
 			end
-
 			local full_path = dir .. "/" .. name
 			local stat = uv.fs_stat(full_path)
-			if stat and stat.type == "directory" then
-				vim.notify("Scanning directory: " .. full_path, vim.log.levels.INFO)
-				scan_dir(full_path)
-			elseif stat and stat.type == "file" and name:match("%.rs$") then
-				vim.notify("Formatting file: " .. full_path, vim.log.levels.INFO)
-				format_file(full_path)
+			if stat then
+				if stat.type == "directory" then
+					if name == "target" then
+						-- skip target directories
+					else
+						find_rust_files(full_path)
+					end
+				elseif stat.type == "file" and name:match("%.rs$") then
+					table.insert(rust_files, full_path)
+				end
 			end
 		end
 	end
 
-	scan_dir(src_dir)
+	find_rust_files(".")
+
+	-- Format each Rust file using rustfmt
+	for _, file in ipairs(rust_files) do
+		vim.fn.jobstart({ "rustfmt", file }, {
+			on_stderr = function(_, data)
+				if data then
+					vim.notify("rustfmt error: " .. table.concat(data, "\n"), vim.log.levels.ERROR)
+				end
+			end,
+		})
+	end
+
+	vim.notify("Formatting " .. tostring(#rust_files) .. " Rust files...", vim.log.levels.INFO)
 end
 
 return M
